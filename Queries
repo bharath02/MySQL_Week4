@@ -1,0 +1,107 @@
+1. A maximum value from <define Column > of a <Table>.
+
+SELECT MAX(..<Column Name>..) AS <Column Name> FROM <Table Name>;
+   Ex: SELECT Max(article) AS article FROM shop;
+
+2. The Row Hold the Maximum of a Certain Column(display row data of selected maximum value of a Column)
+   SELECT <Column1>,<Column2>,<Column3>
+   FROM <TABLE NAME>
+   WHERE <Column Name>=(SELECT MAX(<Column Name> FROM <Table Name>);
+   EX: SELECT article,dealer,price
+   FROM shop
+   WHERE price=(SELECT MAX(price) FROM shop);
+A solution are to use a Left Join or to sort all rows descending by price and get only the first row using LIMIT clause:
+   SELECT s1.article, s1.dealer, s1.price
+   FROM shop s1
+   LEFT JOIN shop s2 ON s1.price < s2.price
+   WHERE s2.article IS NULL;
+
+   SELECT article, dealer, price
+   FROM shop
+   ORDER BY price DESC
+   LIMIT 1;
+
+
+3. Create a table
+    CREATE TABLE '<Name>'(
+    'Col1' INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    'Col2' VARCHAR(45) NOT NULL,
+    'Col3' VARCHAR(50),
+    'COL4' VARCHAR(45) DEFAULT 'NAME(NULL)'
+    PRIMARY KEY('COL NAME')
+    )
+    ENGINE = InnoDB; #used "InnoDB" here because it allows FOREIGN KEY and transactions.
+
+4. Insert Query
+    insert into emp (col1,col2..coln) values('colval1','colval2','colval N')
+
+5. UPDATE the insert Query
+    insert into emp (col1, col2...coln) values('key that already exists', 'new col1','new col2'...'new col N')
+    on duplicate KEY UPDATE col1='new val',col2='new val2')
+
+6. JOINS : Used append new column or update a table with pull data
+    Regular Data:
+    SELECT emp.name, department.name from emp join department on
+    emp.dept = department.name
+    Left join:
+    select emp.name, department.name from emp left join department on emp.dept= department.name
+    Right Join:
+    select emp.name, department.name from emp right join department on emp.dept = department.name
+
+7. Create Constraints:
+     ALTER TABLE 'TABLE_NAME' DROP PRIMARY KEY, ADD PRIMARY KEY ('COLUMN_NAME');
+
+8. DROP a Primary Key:
+    ALTER TABLE 'TABLE_NAME' DROP PRIMARY KEY;
+
+9. Order By, Having Clauses :
+    Select * from TABLE_NAME group_by dept having salary >10000;
+10. Adding Indexing and Searching Queries
+    CREATE TABLE 'emp' ( Name varchar(45),
+                         'id' INT,INDEX(ID)
+                         )
+
+11. Aggregate Function Queries
+    select distinct name, count(dept) aas cnt from emp group by dept
+    order by cnt DESC;
+
+12. Alter and Update Columns of a Table
+    ADD:
+    Alter table 'emp' add column salary varchar(45);
+    EDIT:
+    Alter table 'emp' modify column salary int(10);
+    Rename Column:
+    Alter table 'emp' change salary salary2 varchar(45);
+    Drop a column:
+    Alter table 'emp' drop column salary;
+
+13. Create a New Table with Non-Duplicate Values
+    create table 'emp2' as select * from emp where 1 group by 'lasatname';
+
+14. Create Dump of Yor DataBase and Optimizing the Table:
+    mysqldump -h localhost -u username --ppassword databasename>
+    backup_file.sql
+15. Optimizing a Table
+    Optimize table TABLE_NAME
+
+16. Auto Increment :
+    CREATE TABLE animals(  id MEDIUMINT NOT NULL AUTO_INCREMENT,
+     name CHAR(30) NOT NULL,
+     PRIMARY KEY (id) );
+    INSERT INTO animals (name) VALUES
+        ('dog'),('cat'),('penguin'),
+        ('lax'),('whale'),('ostrich');
+    SELECT * FROM animals;
+
+17. Search on two Keys:
+    SELECT col1Name, col2Name FROM TableName
+    WHERE col1Name =keyvalue OR col2Name=keyValue
+
+18. User Define Variable:
+    SELECT @min_price:=MIN(price),@max_price:=MAX(price) FROM shop;
+    SELECT * FROM shop WHERE price=@min_price OR price=@max_price;
+
+
+
+
+
